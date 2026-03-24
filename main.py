@@ -1399,6 +1399,10 @@ async def text_handler(bot: Client, m: Message):
     match = re.search(r'https?://\S+', links)
     if match:
         link = match.group(0)
+        # If the link appears to be truncated (URL has spaces, e.g. filename with spaces),
+        # take everything from the https:// start to end of the message as the full URL
+        start = match.start()
+        link = links[start:].strip()
     else:
         return
         
